@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawfect Match - Find Your Furever Friend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e67e22;
+        }
+
+        /* Splash screen animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Card hover effect */
+        .pet-card {
+            transition: all 0.3s ease;
+        }
+        .pet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Custom background pattern */
+        .bg-pattern {
+            background-image: radial-gradient(#fcd34d 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Heart beat animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .heartbeat {
+            animation: heartbeat 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Splash Screen -->
+    <div id="splash" class="fixed inset-0 bg-amber-400 flex flex-col items-center justify-center z-50 transition-opacity duration-1000">
+        <div class="text-white text-center">
+            <i class="fas fa-paw text-6xl mb-4 heartbeat"></i>
+            <h1 class="text-4xl font-bold">Pawfect Match</h1>
+            <p class="mt-2">Connecting hearts with paws</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="content" class="opacity-0">
+        <!-- Header with animated nav -->
+        <header class="bg-white shadow-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <a href="#" class="flex items-center space-x-2">
+                    <i class="fas fa-paw text-amber-500 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">Pawfect Match</span>
+                </a>
+                
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-amber-500 font-medium transition">Home</a>
+                    <a href="#pets" class="text-gray-700 hover:text-amber-500 font-medium transition">Pets</a>
+                    <a href="#process" class="text-gray-700 hover:text-amber-500 font-medium transition">Adoption Process</a>
+                    <a href="#about" class="text-gray-700 hover:text-amber-500 font-medium transition">About Us</a>
+                    <a href="#contact" class="text-gray-700 hover:text-amber-500 font-medium transition">Contact</a>
+                </nav>
+                
+                <button class="md:hidden text-gray-600" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                
+                <div class="hidden md:block">
+                    <a href="#apply" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-full font-medium transition shadow-md hover:shadow-lg">Apply Now</a>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t w-full absolute z-50">
+                <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                    <a href="#" class="text-gray-700 hover:text-amber-500 font-medium">Home</a>
+                    <a href="#pets" class="text-gray-700 hover:text-amber-500 font-medium">Pets</a>
+                    <a href="#process" class="text-gray-700 hover:text-amber-500 font-medium">Adoption Process</a>
+                    <a href="#about" class="text-gray-700 hover:text-amber-500 font-medium">About Us</a>
+                    <a href="#contact" class="text-gray-700 hover:text-amber-500 font-medium">Contact</a>
+                    <a href="#apply" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-full font-medium text-center transition shadow-md hover:shadow-lg">Apply Now</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative bg-amber-400 text-white overflow-hidden">
+            <div class="absolute inset-0 bg-pattern opacity-10"></div>
+            <div class="container mx-auto px-4 py-24 md:py-32 relative z-10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">Find Your <span class="underline decoration-white decoration-4">Furever</span> Friend</h1>
+                    <p class="text-xl md:text-2xl mb-8">Thousands of lovable pets are waiting to meet you. Start your adoption journey today!</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#pets" class="bg-white text-amber-700 hover:bg-gray-100 px-6 py-3 rounded-full font-bold transition shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
+                            <span>Browse Pets</span>
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                        <a href="#apply" class="bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-full font-bold transition shadow-lg hover:shadow-xl flex items-center justify-center space-x-2">
+                            <span>Start Application</span>
+                            <i class="fas fa-heart"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent opacity-90"></div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-8 rounded-xl shadow-md transition hover:shadow-lg">
+                        <div class="text-amber-500 text-4xl mb-4">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="text-4xl font-bold text-gray-800 mb-2">1,250+</h3>
+                        <p class="text-gray-600">Happy Homes Created</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-md transition hover:shadow-lg">
+                        <div class="text-amber-500 text-4xl mb-4">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <h3 class="text-4xl font-bold text-gray-800 mb-2">500+</h3>
+                        <p class="text-gray-600">Pets Available Now</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-md transition hover:shadow-lg">
+                        <div class="text-amber-500 text-4xl mb-4">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <h3 class="text-4xl font-bold text-gray-800 mb-2">98%</h3>
+                        <p class="text-gray-600">Satisfaction Rate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Pets Section -->
+        <section id="pets" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Meet Our <span class="text-amber-500">Pawsome</span> Friends</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Each of these amazing pets is waiting for a loving home. Click on any pet to learn more about them.</p>
+                </div>
+
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex rounded-full shadow-md bg-gray-100">
+                        <button class="filter-btn bg-amber-500 text-white px-6 py-2 rounded-full font-medium" data-filter="all">All</button>
+                        <button class="filter-btn hover:bg-gray-200 px-6 py-2 rounded-full font-medium" data-filter="dog"><i class="fas fa-dog mr-2"></i>Dogs</button>
+                        <button class="filter-btn hover:bg-gray-200 px-6 py-2 rounded-full font-medium" data-filter="cat"><i class="fas fa-cat mr-2"></i>Cats</button>
+                        <button class="filter-btn hover:bg-gray-200 px-6 py-2 rounded-full font-medium" data-filter="other"><i class="fas fa-paw mr-2"></i>Others</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="pet-container">
+                    <!-- Pet cards will be loaded here via JavaScript -->
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#pets" class="inline-block bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-medium transition shadow-md hover:shadow-lg">
+                        View All Pets <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adoption Process -->
+        <section id="process" class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Simple <span class="text-amber-500">Adoption</span> Process</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">We've made the adoption process as simple and transparent as possible to help you find your perfect companion.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <div class="bg-amber-100 text-amber-500 w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-4">1</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Browse Pets</h3>
+                        <p class="text-gray-600">View our available pets online or visit our center to meet them in person.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <div class="bg-amber-100 text-amber-500 w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-4">2</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Submit Application</h3>
+                        <p class="text-gray-600">Complete our online adoption form or fill it out at our center.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <div class="bg-amber-100 text-amber-500 w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-4">3</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Meet & Greet</h3>
+                        <p class="text-gray-600">We'll arrange a meet-up so you can get to know your potential new pet.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                        <div class="bg-amber-100 text-amber-500 w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-4">4</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Finalize Adoption</h3>
+                        <p class="text-gray-600">Complete paperwork, pay adoption fee, and take your new friend home!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Happy <span class="text-amber-500">Tails</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Hear from families who found their perfect match through us.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Jessica" class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-gray-800">Jessica T.</h4>
+                                <p class="text-amber-500 text-sm">Adopted: Max (Golden Retriever)</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"The adoption process was so smooth and the staff was incredibly helpful. Max has brought so much joy to our family!"</p>
+                        <div class="mt-4 text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Michael" class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-gray-800">Michael R.</h4>
+                                <p class="text-amber-500 text-sm">Adopted: Luna (Siamese Cat)</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"Luna was the perfect addition to our home. The team matched us based on our lifestyle and it's been a perfect fit."</p>
+                        <div class="mt-4 text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah" class="w-12 h-12 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-gray-800">Sarah & James</h4>
+                                <p class="text-amber-500 text-sm">Adopted: Buddy & Bella (Rabbits)</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"Our kids absolutely love Buddy and Bella. The adoption counselor helped us understand everything we needed to know about rabbit care."</p>
+                        <div class="mt-4 text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adoption Application -->
+        <section id="apply" class="py-16 bg-gradient-to-r from-amber-400 to-amber-500">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 bg-amber-100 p-8 flex flex-col justify-center">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Ready to Adopt?</h3>
+                            <p class="text-gray-600 mb-6">Fill out our adoption application form to start the process. Our team will review your application and get back to you within 48 hours.</p>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-bold text-gray-800 mb-2">What to expect:</h4>
+                                <ul class="text-gray-600 space-y-2">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                        <span>Simple online form</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                        <span>Quick response time</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                        <span>Personalized matching service</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-amber-50 border-l-4 border-amber-400 p-4">
+                                <p class="text-sm text-gray-700"><i class="fas fa-info-circle text-amber-500 mr-2"></i> Our adoption fee ranges from $50-$200 depending on the pet, which includes spay/neuter, vaccinations, and microchipping.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2 p-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6">Adoption Application</h3>
+                            
+                            <form id="adoption-form" class="space-y-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
+                                </div>
+                                
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
+                                </div>
+                                
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                    <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
+                                </div>
+                                
+                                <div>
+                                    <label for="pet" class="block text-sm font-medium text-gray-700 mb-1">Interested In</label>
+                                    <select id="pet" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500">
+                                        <option value="">Select a pet (optional)</option>
+                                        <option value="dog">Dog</option>
+                                        <option value="cat">Cat</option>
+                                        <option value="other">Other</option>
+                                        <option value="unsure">Not sure yet</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Pet Ownership Experience</label>
+                                    <textarea id="experience" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500"></textarea>
+                                </div>
+                                
+                                <div>
+                                    <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-md transition shadow-md hover:shadow-lg">
+                                        Submit Application
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us -->
+        <section id="about" class="py-16 bg-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                        <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Volunteers with pets" class="rounded-xl shadow-xl w-full">
+                    </div>
+                    
+                    <div class="md:w-1/2">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Our <span class="text-amber-500">Mission</span></h2>
+                        
+                        <p class="text-gray-600 mb-4">At Pawfect Match, we believe every pet deserves a loving home and every home deserves the love of a pet. Since 2010, we've been connecting pets in need with caring families.</p>
+                        
+                        <p class="text-gray-600 mb-6">Our no-kill shelter provides a safe haven for animals while we work to find them permanent homes. We provide medical care, socialization, and training to prepare each animal for adoption.</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                <span>No-kill shelter</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                <span>100% volunteer staff</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                <span>Transparent adoption process</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                <span>Post-adoption support</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#contact" class="inline-block bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-medium transition shadow-md hover:shadow-lg">
+                            Learn More About Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Location -->
+        <section id="contact" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Visit <span class="text-amber-500">Us</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Come meet our available pets in person at our adoption center or get in touch with any questions.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-12">
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-50 rounded-xl p-8 shadow-md h-full">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="text-amber-500 mt-1 mr-4">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">Address</h4>
+                                        <p class="text-gray-600">123 Pet Adoption Lane<br>San Francisco, CA 94110</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="text-amber-500 mt-1 mr-4">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">Phone</h4>
+                                        <p class="text-gray-600">(415) 555-1234</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="text-amber-500 mt-1 mr-4">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">Email</h4>
+                                        <p class="text-gray-600">adoptions@pawfectmatch.org</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="text-amber-500 mt-1 mr-4">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">Hours</h4>
+                                        <p class="text-gray-600">
+                                            Monday - Friday: 10am - 6pm<br>
+                                            Saturday - Sunday: 10am - 4pm
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 pt-6 border-t border-gray-200">
+                                <h4 class="font-bold text-gray-800 mb-4">Follow Us</h4>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-gray-600 hover:text-amber-500 text-xl">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-600 hover:text-amber-500 text-xl">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-600 hover:text-amber-500 text-xl">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-600 hover:text-amber-500 text-xl">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2">
+                        <div class="h-full rounded-xl overflow-hidden shadow-md">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0388873944534!2d-122.4194!3d37.7749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" width="100%" height="100%" style="min-height: 400px;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-16 bg-gradient-to-r from-amber-500 to-amber-600 text-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay Updated</h2>
+                    <p class="text-xl mb-8">Subscribe to our newsletter for adoption stories, events, and new pet arrivals.</p>
+                    
+                    <form class="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+                        <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-700">
+                        <button type="submit" class="bg-white text-amber-700 hover:bg-gray-100 px-6 py-3 rounded-full font-bold transition shadow-lg hover:shadow-xl">
+                            Subscribe <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                    
+                    <p class="text-sm mt-4 opacity-80">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pet Modal -->
+        <div id="pet-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
+                <div class="relative">
+                    <button id="close-modal" class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md z-10">
+                        <i class="fas fa-times text-gray-700"></i>
+                    </button>
+                    
+                    <div class="md:flex">
+                        <div class="md:w-1/2">
+                            <img id="modal-pet-image" src="" alt="" class="w-full h-64 md:h-full object-cover">
+                        </div>
+                        
+                        <div class="md:w-1/2 p-8">
+                            <h3 id="modal-pet-name" class="text-3xl font-bold text-gray-800 mb-2"></h3>
+                            <div class="flex items-center text-amber-500 mb-4">
+                                <i id="modal-pet-icon" class="fas fa-paw mr-2"></i>
+                                <span id="modal-pet-type" class="capitalize"></span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <h4 class="text-sm font-bold text-gray-500">Age</h4>
+                                    <p id="modal-pet-age" class="text-gray-800"></p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-gray-500">Gender</h4>
+                                    <p id="modal-pet-gender" class="text-gray-800"></p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-gray-500">Breed</h4>
+                                    <p id="modal-pet-breed" class="text-gray-800"></p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-gray-500">Size</h4>
+                                    <p id="modal-pet-size" class="text-gray-800"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h4 class="text-lg font-bold text-gray-800 mb-2">About Me</h4>
+                                <p id="modal-pet-description" class="text-gray-600"></p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h4 class="text-lg font-bold text-gray-800 mb-2">Health & Vaccination</h4>
+                                <p id="modal-pet-health" class="text-gray-600"></p>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="#apply" class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-medium text-center transition shadow-md hover:shadow-lg">
+                                    Adopt Me <i class="fas fa-heart ml-2"></i>
+                                </a>
+                                <button id="share-pet" class="border border-gray-300 px-6 py-3 rounded-full font-medium text-gray-700 hover:bg-gray-100 transition">
+                                    Share <i class="fas fa-share-alt ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white pt-16 pb-8">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <i class="fas fa-paw text-amber-500 text-2xl"></i>
+                            <span class="text-xl font-bold">Pawfect Match</span>
+                        </div>
+                        <p class="text-gray-400">Connecting loving homes with amazing pets since 2010.</p>
+                        
+                        <div class="flex space-x-4 mt-6">
+                            <a href="#" class="text-gray-400 hover:text-amber-500 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-amber-500 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-amber-500 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-amber-500 transition">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Home</a></li>
+                            <li><a href="#pets" class="text-gray-400 hover:text-amber-500 transition">Available Pets</a></li>
+                            <li><a href="#process" class="text-gray-400 hover:text-amber-500 transition">Adoption Process</a></li>
+                            <li><a href="#about" class="text-gray-400 hover:text-amber-500 transition">About Us</a></li>
+                            <li><a href="#contact" class="text-gray-400 hover:text-amber-500 transition">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Support</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">FAQ</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Donate</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Volunteer</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Foster Program</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Report Cruelty</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                        <p class="text-gray-400 mb-4">Subscribe to get updates on new arrivals and events.</p>
+                        
+                        <form class="flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-md text-gray-800 w-full">
+                            <button type="submit" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-r-md">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0">&copy; 2023 Pawfect Match. All rights reserved.</p>
+                    
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-amber-500 transition text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-amber-500 transition text-sm">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-amber-500 transition text-sm">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="fixed bottom-6 right-6 bg-amber-500 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hidden transition hover:bg-amber-600">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <script>
+        // Splash screen transition
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('splash').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('splash').style.display = 'none';
+                    document.getElementById('content').classList.remove('opacity-0');
+                    document.getElementById('content').classList.add('fade-in');
+                }, 1000);
+            }, 2000);
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('hidden');
+                } else {
+                    backToTopButton.classList.add('hidden');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Filter pets
+            const petContainer = document.getElementById('pet-container');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Sample pet data
+            const pets = [
+                {
+                    id: 1,
+                    name: 'Charlie',
+                    type: 'dog',
+                    breed: 'Golden Retriever',
+                    age: '2 years',
+                    gender: 'Male',
+                    size: 'Medium',
+                    description: 'Charlie is a playful and friendly golden retriever who loves long walks and cuddles.',
+                    health: 'Neutered, up-to-date on vaccinations, microchipped',
+                    img: 'https://images.unsplash.com/photo-1633722715463-d30f4f325e24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 2,
+                    name: 'Luna',
+                    type: 'cat',
+                    breed: 'Siamese Mix',
+                    age: '1.5 years',
+                    gender: 'Female',
+                    size: 'Small',
+                    description: 'Luna is a graceful and curious cat who enjoys sunny spots and feather toys.',
+                    health: 'Spayed, up-to-date on vaccinations, microchipped',
+                    img: 'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 3,
+                    name: 'Max',
+                    type: 'dog',
+                    breed: 'Labrador Mix',
+                    age: '4 months',
+                    gender: 'Male',
+                    size: 'Small',
+                    description: 'Max is an energetic puppy who loves playing fetch and learning new tricks.',
+                    health: 'Will need future neuter, first round of vaccinations complete',
+                    img: 'https://images.unsplash.com/photo-1702273157397-5f247ec99025?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                },
+                {
+                    id: 4,
+                    name: 'Bella',
+                    type: 'cat',
+                    breed: 'Domestic Shorthair',
+                    age: '3 years',
+                    gender: 'Female',
+                    size: 'Small',
+                    description: 'Bella is a gentle and sweet cat who prefers calm environments and nightly cuddles.',
+                    health: 'Spayed, up-to-date on vaccinations, microchipped',
+                    img: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 5,
+                    name: 'Rocky',
+                    type: 'dog',
+                    breed: 'German Shepherd',
+                    age: '5 years',
+                    gender: 'Male',
+                    size: 'Large',
+                    description: 'Rocky is a loyal and intelligent dog with good training who would be a great companion.',
+                    health: 'Neutered, up-to-date on vaccinations, microchipped',
+                    img: 'https://images.unsplash.com/photo-1588943211346-0905a1b763a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 6,
+                    name: 'Oliver',
+                    type: 'cat',
+                    breed: 'Maine Coon Mix',
+                    age: '2 years',
+                    gender: 'Male',
+                    size: 'Medium',
+                    description: 'Oliver is a talkative and affectionate cat who loves attention and exploring.',
+                    health: 'Neutered, up-to-date on vaccinations, microchipped',
+                    img: 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 7,
+                    name: 'Thumper',
+                    type: 'other',
+                    breed: 'Netherland Dwarf Rabbit',
+                    age: '1 year',
+                    gender: 'Male',
+                    size: 'Small',
+                    description: 'Thumper is a curious and friendly rabbit who would love a home with space to hop around.',
+                    health: 'Neutered, up-to-date on vaccinations',
+                    img: 'https://images.unsplash.com/photo-1556838803-cc94986cb631?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 8,
+                    name: 'Cris',
+                    type: 'other',
+                    breed: 'Hamster',
+                    age: '8 months',
+                    gender: 'Male',
+                    size: 'Small',
+                    description: 'Cris is a sweet hamster who enjoys fresh veggies and cozy hideouts.',
+                    health: 'Healthy, requires regular check-ups',
+                    img: 'https://images.unsplash.com/photo-1533152162573-93ad94eb20f6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                }
+            ];
+
+            // Display all pets initially
+            displayPets(pets);
+
+            // Filter pets when buttons are clicked
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('bg-amber-500', 'text-white'));
+                    filterButtons.forEach(btn => btn.classList.add('hover:bg-gray-200'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('bg-amber-500', 'text-white');
+                    this.classList.remove('hover:bg-gray-200');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    let filteredPets;
+                    
+                    if (filter === 'all') {
+                        filteredPets = pets;
+                    } else {
+                        filteredPets = pets.filter(pet => pet.type === filter);
+                    }
+                    
+                    displayPets(filteredPets);
+                });
+            });
+
+            function displayPets(petsToDisplay) {
+                petContainer.innerHTML = '';
+                
+                petsToDisplay.forEach(pet => {
+                    const petCard = document.createElement('div');
+                    petCard.className = 'pet-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer transition';
+                    petCard.innerHTML = `
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${pet.img}" alt="${pet.name}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                                <h3 class="text-white font-bold text-xl">${pet.name}</h3>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-500 text-sm">${pet.breed}</span>
+                                <span class="text-amber-500">${pet.age}</span>
+                            </div>
+                            <p class="text-gray-600 text-sm line-clamp-2">${pet.description}</p>
+                            <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-200">
+                                <span class="text-sm">${pet.gender} • ${pet.size}</span>
+                                <button class="text-amber-500 hover:text-amber-600">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    petCard.addEventListener('click', function() {
+                        openPetModal(pet);
+                    });
+                    
+                    petContainer.appendChild(petCard);
+                });
+            }
+
+            // Pet modal functionality
+            const petModal = document.getElementById('pet-modal');
+            const closeModal = document.getElementById('close-modal');
+            
+            function openPetModal(pet) {
+                document.getElementById('modal-pet-name').textContent = pet.name;
+                document.getElementById('modal-pet-image').src = pet.img;
+                document.getElementById('modal-pet-image').alt = pet.name;
+                document.getElementById('modal-pet-type').textContent = pet.type;
+                document.getElementById('modal-pet-age').textContent = pet.age;
+                document.getElementById('modal-pet-gender').textContent = pet.gender;
+                document.getElementById('modal-pet-breed').textContent = pet.breed;
+                document.getElementById('modal-pet-size').textContent = pet.size;
+                document.getElementById('modal-pet-description').textContent = pet.description;
+                document.getElementById('modal-pet-health').textContent = pet.health;
+                
+                // Set appropriate icon based on pet type
+                const petIcon = document.getElementById('modal-pet-icon');
+                if (pet.type === 'dog') {
+                    petIcon.className = 'fas fa-dog mr-2';
+                } else if (pet.type === 'cat') {
+                    petIcon.className = 'fas fa-cat mr-2';
+                } else {
+                    petIcon.className = 'fas fa-paw mr-2';
+                }
+                
+                petModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            closeModal.addEventListener('click', function() {
+                petModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            petModal.addEventListener('click', function(e) {
+                if (e.target === petModal) {
+                    petModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Share pet functionality
+            document.getElementById('share-pet').addEventListener('click', function() {
+                if (navigator.share) {
+                    const petName = document.getElementById('modal-pet-name').textContent;
+                    const petBreed = document.getElementById('modal-pet-breed').textContent;
+                    
+                    navigator.share({
+                        title: `Adopt ${petName} the ${petBreed}`,
+                        text: `Check out ${petName}, an amazing ${petBreed} available for adoption at Pawfect Match!`,
+                        url: window.location.href
+                    }).catch(err => {
+                        console.log('Error sharing:', err);
+                    });
+                } else {
+                    alert('Web Share API not supported in your browser. Copy this link to share: ' + window.location.href);
+                }
+            });
+
+            // Form submission
+            const adoptionForm = document.getElementById('adoption-form');
+            
+            adoptionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would typically send the form data to a server
+                // For this demo, we'll just show an alert
+                alert('Thank you for your adoption application! We will review it and get back to you soon.');
+                adoptionForm.reset();
+                
+                // Scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
